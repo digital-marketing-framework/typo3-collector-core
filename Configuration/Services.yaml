@@ -1,0 +1,23 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  DigitalMarketingFramework\Typo3\Collector\Core\:
+    resource: '../Classes/*'
+    exclude: '../Classes/Domain/Model/*'
+
+  # configuration document meta data update listeners
+  DigitalMarketingFramework\Typo3\Collector\Core\ConfigurationDocument\EventListener\ConfigurationDocumentMetaDataUpdateEventListener:
+    tags:
+      - name: event.listener
+        identifier: 'digital-marketing-framework/collector-core/configuration-document-meta-data-update'
+        event: DigitalMarketingFramework\Typo3\Core\ConfigurationDocument\Event\ConfigurationDocumentMetaDataUpdateEvent
+
+  # registry update listeners
+  DigitalMarketingFramework\Typo3\Collector\Core\Registry\EventListener\CoreRegistryPluginUpdateEventListener:
+    tags:
+      - name: event.listener
+        identifier: 'digital-marketing-framework/collector-core/registry-update/core/plugin'
+        event: DigitalMarketingFramework\Typo3\Core\Registry\Event\CoreRegistryPluginUpdateEvent

@@ -1,0 +1,25 @@
+routeEnhancers:
+  PageTypeSuffix:
+    map:
+      ajax-user-data.json: 1673463849
+  DigitalMarketingFramworkCollector:
+    type: Extbase
+    extension: DigitalmarketingframeworkCollector
+    plugin: AjaxService
+    routes:
+      - routePath: "digital-marketing-framework"
+        _controller: "Collector::show"
+      - routePath: "digital-marketing-framework/{map}"
+        _controller: "Collector::show"
+        _arguments:
+          map: map
+    defaultController: "Collector::show"
+
+    requirements:
+      map: "[a-z][a-zA-Z]*"
+
+    aspects:
+      map:
+        type: TyposcriptValueMapper
+        typoScriptPath: plugin.tx_digitalmarketingframework_collector.settings.allowedDataMaps
+        identityMapping: true

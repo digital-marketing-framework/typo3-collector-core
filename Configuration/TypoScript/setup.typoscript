@@ -24,7 +24,13 @@ digitalmarketingframework_collector_ajax_service {
       vendorName = DigitalMarketingFramework
       extensionName = DigitalmarketingframeworkCollector
       pluginName = AjaxService
-      controller = CollectorController
+      controller = Collector
       settings < plugin.tx_digitalmarketingframework_collector.settings
     }
 }
+
+["{$plugin.tx_digitalmarketingframework_collector.settings.globalJsInclude}" == "header"]
+page.includeJSlibs.ditigalMarketingFrameworkCollector = EXT:digitalmarketingframework_collector/Resources/Public/JavaScript/digital-marketing-framework-collector.js
+["{$plugin.tx_digitalmarketingframework_collector.settings.globalJsInclude}" == "footer"]
+page.includeJSFooterlibs.ditigalMarketingFrameworkCollector = EXT:digitalmarketingframework_collector/Resources/Public/JavaScript/digital-marketing-framework-collector.js
+[global]

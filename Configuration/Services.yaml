@@ -16,6 +16,12 @@ services:
         event: DigitalMarketingFramework\Typo3\Core\ConfigurationDocument\Event\ConfigurationDocumentMetaDataUpdateEvent
 
   # registry update listeners
+  DigitalMarketingFramework\Typo3\Collector\Core\Registry\EventListener\CollectorRegistryServiceUpdateEventListener:
+    tags:
+      - name: event.listener
+        identifier: 'digital-marketing-framework/collector-core/registry-update/collector/service'
+        event: DigitalMarketingFramework\Typo3\Collector\Core\Registry\Event\CollectorRegistryServiceUpdateEvent
+
   DigitalMarketingFramework\Typo3\Collector\Core\Registry\EventListener\CoreRegistryPluginUpdateEventListener:
     tags:
       - name: event.listener

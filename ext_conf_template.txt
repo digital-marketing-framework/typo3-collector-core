@@ -1,0 +1,11 @@
+
+botProtection {
+    # cat=Bot Protection; type=boolean; label=Enabled
+    enabled = 1
+    # cat=Bot Protection; type=integer; label=Timeout
+    timeout = 300
+    # cat=Bot Protection; type=integer; label=Penalty per failed Attempt (in seconds)
+    penaltyPerAttempt = 5
+    # cat=Bot Protection; type=integer; label=Maximum Penalty (in seconds)
+    maxPenalty = 30
+}

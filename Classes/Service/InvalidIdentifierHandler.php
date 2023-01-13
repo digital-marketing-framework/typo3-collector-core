@@ -1,0 +1,112 @@
+<?php
+
+namespace DigitalMarketingFramework\Typo3\Collector\Core\Service;
+
+use DateTime;
+use DigitalMarketingFramework\Collector\Core\Service\InvalidIdentifierHandler as CoreInvalidIdentifierHandler;
+use DigitalMarketingFramework\Collector\Core\Service\InvalidIdentifierHandlerInterface;
+use DigitalMarketingFramework\Core\Context\ContextInterface;
+use DigitalMarketingFramework\Core\GlobalConfiguration\GlobalConfigurationAwareInterface;
+use DigitalMarketingFramework\Core\GlobalConfiguration\GlobalConfigurationAwareTrait;
+use DigitalMarketingFramework\Typo3\Collector\Core\Domain\Model\InvalidRequest;
+use DigitalMarketingFramework\Typo3\Collector\Core\Domain\Repository\InvalidRequestRepository;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+
+class InvalidIdentifierHandler extends CoreInvalidIdentifierHandler implements GlobalConfigurationAwareInterface
+{
+    use GlobalConfigurationAwareTrait;
+
+    protected const DEFAULT_ENABLED = false;
+    protected const DEFAULT_TIMEOUT = 300;
+    protected const DEFAULT_PENALTY_PER_ATTEMPT = 5;
+    protected const DEFAULT_MAX_PENALTY = 30;
+
+    protected string $identifier;
+    protected ?InvalidRequest $invalidRequest;
+
+    public function __construct(
+        protected PersistenceManager $persistenceManager,
+        protected InvalidRequestRepository $invalidRequestRepository,
+    ) {
+    }
+
+    protected function enabled(): bool
+    {
+        return $this->settings['enabled'] ?? static::DEFAULT_ENABLED;
+    }
+
+    protected function getPenalty(int $invalidRequestCount): int
+    {
+        $penalty = $invalidRequestCount * $this->settings['penaltyPerAttempt'] ?? static::DEFAULT_PENALTY_PER_ATTEMPT;
+        if ($penalty > $this->settings['maxPenalty'] ?? static::DEFAULT_MAX_PENALTY) {
+            $penalty = $this->settings['maxPenalty'] ?? static::DEFAULT_MAX_PENALTY;
+        }
+        return $penalty;
+    }
+
+    protected function getInvalidRequestCount(): int
+    {
+        $this->initRecord();
+
+        if ($this->invalidRequest === null) {
+            return 0;
+        }
+
+        if ($this->invalidRequest->isExpired($this->settings['timeout'] ?? static::DEFAULT_TIMEOUT)) {
+            return 0;
+        }
+
+        return $this->invalidRequest->getCount();
+    }
+
+    protected function setInvalidRequestCount(int $invalidRequestCount): void
+    {
+        if ($this->identifier === '') {
+            // we can't save anything if there is no identifier given
+            return;
+        }
+
+        $this->initRecord();
+
+        if ($this->invalidRequest !== null) {
+            if ($invalidRequestCount > 0) {
+                if ($invalidRequestCount !== $this->invalidRequest->getCount()) {
+                    $this->invalidRequest->setTstamp(new DateTime());
+                    $this->invalidRequest->setCount($invalidRequestCount);
+                    $this->invalidRequestRepository->update($this->invalidRequest);
+                    $this->persistenceManager->persistAll();
+                }
+            } else {
+                $this->invalidRequestRepository->remove($this->invalidRequest);
+                $this->persistenceManager->persistAll();
+            }
+        } else {
+            if ($invalidRequestCount > 0) {
+                $invalidRequest = new InvalidRequest();
+                $invalidRequest->setIdentifier($this->identifier);
+                $invalidRequest->setTstamp(new DateTime());
+                $invalidRequest->setCount($invalidRequestCount);
+                $this->invalidRequestRepository->add($invalidRequest);
+                $this->persistenceManager->persistAll();
+            }
+        }
+    }
+
+    protected function init(ContextInterface $context): void
+    {
+        $this->settings = $this->globalConfiguration->get('digitalmarketingframework_collector')['botProtection'] ?? [];
+
+        $ipAddress = $context->getIpAddress();
+        $this->identifier = $ipAddress === '' ? '' : hash('md5', $ipAddress);
+    }
+
+    protected function initRecord(): void
+    {
+        if (!isset($this->invalidRequest)) {
+            $this->invalidRequest = null;
+            if ($this->identifier !== '') {
+                $this->invalidRequest = $this->invalidRequestRepository->findOneByIdentifier($this->identifier);
+            }
+        }
+    }
+}

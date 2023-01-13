@@ -17,9 +17,3 @@ routeEnhancers:
 
     requirements:
       map: "[a-z][a-zA-Z]*"
-
-    aspects:
-      map:
-        type: TyposcriptValueMapper
-        typoScriptPath: plugin.tx_digitalmarketingframework_collector.settings.allowedDataMaps
-        identityMapping: true

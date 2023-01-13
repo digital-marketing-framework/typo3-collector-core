@@ -3,5 +3,6 @@ plugin.tx_digitalmarketingframework_collector {
     configurationDocument =
     allowedDataMaps =
     defaultMap =
+    globalJsInclude = footer
   }
 }

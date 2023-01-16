@@ -46,23 +46,24 @@ class CollectorController extends ActionController
         return $allowedDataMaps ? explode(',', $allowedDataMaps) : [];
     }
 
-    protected function getMap(string $map = ''): string
+    protected function getMap(CollectorConfigurationInterface $configuration, string $map = ''): string
     {
         if ($map !== '') {
             return $map;
         }
-        return $this->settings['defaultMap'] ?? '';
+        return $configuration->getCollectorConfiguration()[CollectorInterface::KEY_DEFAULT_MAP] ?? '';
     }
 
     public function showAction(string $map = ''): ResponseInterface
     {
-        $map = $this->getMap($map);
-        $allowedDataMaps = $this->getAllowedDataMaps();
-        $configuration = $this->getConfiguration();
-
         $data = [];
-        if ($configuration !== null && $map !== '' && in_array($map, $allowedDataMaps)) {
-            $data = GeneralUtility::castDataToArray($this->collector->collect($configuration, $map));
+        $configuration = $this->getConfiguration();
+        if ($configuration !== null) {
+            $map = $this->getMap($configuration, $map);
+            $allowedDataMaps = $this->getAllowedDataMaps();
+            if ($map !== '' && in_array($map, $allowedDataMaps)) {
+                $data = GeneralUtility::castDataToArray($this->collector->collect($configuration, $map));
+            }
         }
 
         if (empty($data)) {

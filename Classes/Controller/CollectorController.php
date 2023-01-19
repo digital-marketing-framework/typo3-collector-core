@@ -59,7 +59,7 @@ class CollectorController extends ActionController
         $data = [];
         $configuration = $this->getConfiguration();
         if ($configuration !== null) {
-            $map = $this->getMap($configuration, $map);
+            $map = $this->getMap($configuration, $map, invalidIdentifierHandling:true);
             $allowedDataMaps = $this->getAllowedDataMaps();
             if ($map !== '' && in_array($map, $allowedDataMaps)) {
                 $data = GeneralUtility::castDataToArray($this->collector->collect($configuration, $map));

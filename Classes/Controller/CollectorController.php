@@ -30,40 +30,22 @@ class CollectorController extends ActionController
         $this->collector = $registry->getCollector();
     }
 
-    protected function getConfiguration(): ?CollectorConfigurationInterface
+    protected function getConfiguration(string $document): ?CollectorConfigurationInterface
     {
-        $documentIdentifier = $this->settings['configurationDocument'] ?? '';
-        if ($documentIdentifier) {
-            $configurationStack = $this->configurationDocumentManager->getConfigurationStackFromIdentifier($this->settings['configurationDocument']);
+        $documentIdentifier = $this->settings['configurationDocuments'][$document] ?? null;
+        if ($documentIdentifier !== null) {
+            $configurationStack = $this->configurationDocumentManager->getConfigurationStackFromIdentifier($documentIdentifier);
             return new CollectorConfiguration($configurationStack);
         }
         return null;
     }
 
-    protected function getAllowedDataMaps(): array
-    {
-        $allowedDataMaps = $this->settings['allowedDataMaps'] ?? '';
-        return $allowedDataMaps ? explode(',', $allowedDataMaps) : [];
-    }
-
-    protected function getMap(CollectorConfigurationInterface $configuration, string $map = ''): string
-    {
-        if ($map !== '') {
-            return $map;
-        }
-        return $configuration->getCollectorConfiguration()[CollectorInterface::KEY_DEFAULT_MAP] ?? '';
-    }
-
-    public function showAction(string $map = ''): ResponseInterface
+    public function showAction(string $document = 'default'): ResponseInterface
     {
         $data = [];
-        $configuration = $this->getConfiguration();
+        $configuration = $this->getConfiguration($document);
         if ($configuration !== null) {
-            $map = $this->getMap($configuration, $map, invalidIdentifierHandling:true);
-            $allowedDataMaps = $this->getAllowedDataMaps();
-            if ($map !== '' && in_array($map, $allowedDataMaps)) {
-                $data = GeneralUtility::castDataToArray($this->collector->collect($configuration, $map));
-            }
+            $data = GeneralUtility::castDataToArray($this->collector->collect($configuration));
         }
 
         if (empty($data)) {

@@ -1,8 +1,9 @@
 
 plugin.tx_digitalmarketingframework_collector {
   settings {
-    configurationDocument = {$plugin.tx_digitalmarketingframework_collector.settings.configurationDocument}
-    allowedDataMaps = {$plugin.tx_digitalmarketingframework_collector.settings.allowedDataMaps}
+    configurationDocuments {
+      default = {$plugin.tx_digitalmarketingframework_collector.settings.configurationDocuments.default}
+    }
   }
 }
 

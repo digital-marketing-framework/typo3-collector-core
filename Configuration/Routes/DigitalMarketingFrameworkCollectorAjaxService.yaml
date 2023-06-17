@@ -2,7 +2,7 @@ routeEnhancers:
   PageTypeSuffix:
     map:
       ajax-user-data.json: 1673463849
-  DigitalMarketingFramworkCollector:
+  DigitalMarketingFrameworkCollector:
     type: Extbase
     extension: DigitalmarketingframeworkCollector
     plugin: AjaxService

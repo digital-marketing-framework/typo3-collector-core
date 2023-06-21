@@ -1,9 +1,8 @@
 
 plugin.tx_digitalmarketingframework_collector {
   settings {
-    configurationDocuments {
-      default = {$plugin.tx_digitalmarketingframework_collector.settings.configurationDocuments.default}
-    }
+    configurationDocument = {$plugin.tx_digitalmarketingframework_collector.settings.configurationDocument}
+    defaultTransformation = {$plugin.tx_digitalmarketingframework_collector.settings.defaultTransformation}
   }
 }
 

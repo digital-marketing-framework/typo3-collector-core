@@ -24,28 +24,33 @@ class CollectorController extends ActionController
 
     protected CollectorInterface $collector;
 
-    public function __construct(Registry $registry)
-    {
+    public function __construct(
+        protected Registry $registry
+    ) {
         $this->configurationDocumentManager = $registry->getConfigurationDocumentManager();
         $this->collector = $registry->getCollector();
     }
 
-    protected function getConfiguration(string $document): ?CollectorConfigurationInterface
+    protected function getConfiguration(): CollectorConfigurationInterface
     {
-        $documentIdentifier = $this->settings['configurationDocuments'][$document] ?? null;
-        if ($documentIdentifier !== null) {
-            $configurationStack = $this->configurationDocumentManager->getConfigurationStackFromIdentifier($documentIdentifier);
-            return new CollectorConfiguration($configurationStack);
-        }
-        return null;
+        // TODO should this really be TypoScript? maybe the extension configuration would be more appropriate
+        $documentIdentifier = $this->settings['configurationDocument'];
+        $configurationStack = $this->configurationDocumentManager->getConfigurationStackFromIdentifier($documentIdentifier);
+        return new CollectorConfiguration($configurationStack);
     }
 
-    public function showAction(string $document = 'default'): ResponseInterface
+    public function showAction(string $map = ''): ResponseInterface
     {
+        if ($map === '') {
+            $map = $this->settings['defaultTransformation'];
+        }
+        $configuration = $this->getConfiguration();
+        $transformation = $this->registry->getDataTransformation($map, $configuration, true);
         $data = [];
-        $configuration = $this->getConfiguration($document);
-        if ($configuration !== null) {
-            $data = GeneralUtility::castDataToArray($this->collector->collect($configuration));
+        if ($transformation->allowed()) {
+            $data = $this->collector->collect($configuration, invalidIdentifierHandling:true);
+            $data = $transformation->transform($data);
+            $data = GeneralUtility::castDataToArray($data);
         }
 
         if (empty($data)) {

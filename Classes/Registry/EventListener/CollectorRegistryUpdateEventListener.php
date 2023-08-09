@@ -2,26 +2,28 @@
 
 namespace DigitalMarketingFramework\Typo3\Collector\Core\Registry\EventListener;
 
+use DigitalMarketingFramework\Collector\Core\Registry\RegistryInterface;
+use DigitalMarketingFramework\Distributor\Core\DistributorCoreInitialization;
 use DigitalMarketingFramework\Typo3\Collector\Core\Domain\Repository\InvalidRequestRepository;
-use DigitalMarketingFramework\Typo3\Collector\Core\Registry\Event\CollectorRegistryServiceUpdateEvent;
 use DigitalMarketingFramework\Typo3\Collector\Core\Service\InvalidIdentifierHandler;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
-class CollectorRegistryServiceUpdateEventListener
+class CollectorRegistryUpdateEventListener extends AbstractCollectorRegistryUpdateEventListener
 {
     public function __construct(
         protected PersistenceManager $persistenceManager,
         protected InvalidRequestRepository $failedAttemptRepository,
     ) {
+        parent::__construct(new DistributorCoreInitialization());
     }
 
-    public function __invoke(CollectorRegistryServiceUpdateEvent $event): void
+    protected function initServices(RegistryInterface $registry): void
     {
-        $registry = $event->getRegistry();
+        parent::initServices($registry);
         $invalidIdentifierHandler = $registry->createObject(
             InvalidIdentifierHandler::class,
             [$this->persistenceManager, $this->failedAttemptRepository]
         );
-        $event->getRegistry()->setInvalidIdentifierHandler($invalidIdentifierHandler);
+        $registry->setInvalidIdentifierHandler($invalidIdentifierHandler);
     }
 }

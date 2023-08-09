@@ -29,7 +29,7 @@ digitalmarketingframework_collector_ajax_service {
 }
 
 ["{$plugin.tx_digitalmarketingframework_collector.settings.globalJsInclude}" == "header"]
-page.includeJSlibs.ditigalMarketingFrameworkCollector = EXT:digitalmarketingframework_collector/Resources/Public/JavaScript/digital-marketing-framework-collector.js
+page.includeJSlibs.digitalMarketingFrameworkCollector = EXT:digitalmarketingframework_collector/Resources/Public/JavaScript/digital-marketing-framework-collector.js
 ["{$plugin.tx_digitalmarketingframework_collector.settings.globalJsInclude}" == "footer"]
-page.includeJSFooterlibs.ditigalMarketingFrameworkCollector = EXT:digitalmarketingframework_collector/Resources/Public/JavaScript/digital-marketing-framework-collector.js
+page.includeJSFooterlibs.digitalMarketingFrameworkCollector = EXT:digitalmarketingframework_collector/Resources/Public/JavaScript/digital-marketing-framework-collector.js
 [global]

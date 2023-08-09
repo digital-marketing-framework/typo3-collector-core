@@ -3,11 +3,9 @@
 namespace DigitalMarketingFramework\Typo3\Collector\Core\Registry;
 
 use DigitalMarketingFramework\Collector\Core\Registry\Registry as CoreCollectorRegistry;
-use DigitalMarketingFramework\Typo3\Core\Registry\Event\CoreRegistryGlobalConfigurationUpdateEvent;
-use DigitalMarketingFramework\Typo3\Core\Registry\Event\CoreRegistryPluginUpdateEvent;
-use DigitalMarketingFramework\Typo3\Core\Registry\Event\CoreRegistryServiceUpdateEvent;
-use DigitalMarketingFramework\Typo3\Collector\Core\Registry\Event\CollectorRegistryPluginUpdateEvent;
-use DigitalMarketingFramework\Typo3\Collector\Core\Registry\Event\CollectorRegistryServiceUpdateEvent;
+use DigitalMarketingFramework\Core\Registry\RegistryUpdateType;
+use DigitalMarketingFramework\Typo3\Collector\Core\Registry\Event\CollectorRegistryUpdateEvent;
+use DigitalMarketingFramework\Typo3\Core\Registry\Event\CoreRegistryUpdateEvent;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\SingletonInterface;
 
@@ -21,19 +19,23 @@ class Registry extends CoreCollectorRegistry implements SingletonInterface
     public function initializeObject(): void
     {
         $this->eventDispatcher->dispatch(
-            new CoreRegistryGlobalConfigurationUpdateEvent($this)
+            new CoreRegistryUpdateEvent($this, RegistryUpdateType::GLOBAL_CONFIGURATION)
         );
         $this->eventDispatcher->dispatch(
-            new CoreRegistryServiceUpdateEvent($this)
+            new CoreRegistryUpdateEvent($this, RegistryUpdateType::SERVICE)
         );
         $this->eventDispatcher->dispatch(
-            new CoreRegistryPluginUpdateEvent($this)
+            new CoreRegistryUpdateEvent($this, RegistryUpdateType::PLUGIN)
+        );
+
+        $this->eventDispatcher->dispatch(
+            new CollectorRegistryUpdateEvent($this, RegistryUpdateType::GLOBAL_CONFIGURATION)
         );
         $this->eventDispatcher->dispatch(
-            new CollectorRegistryServiceUpdateEvent($this)
+            new CollectorRegistryUpdateEvent($this, RegistryUpdateType::SERVICE)
         );
         $this->eventDispatcher->dispatch(
-            new CollectorRegistryPluginUpdateEvent($this)
+            new CollectorRegistryUpdateEvent($this, RegistryUpdateType::PLUGIN)
         );
     }
 }

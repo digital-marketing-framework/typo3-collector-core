@@ -17,20 +17,27 @@ abstract class AbstractCollectorRegistryUpdateEventListener
 
     protected function initGlobalConfiguration(RegistryInterface $registry): void
     {
+        $this->initialization->initGlobalConfiguration(RegistryDomain::CORE, $registry);
     }
 
     protected function initServices(RegistryInterface $registry): void
     {
+        $this->initialization->initServices(RegistryDomain::CORE, $registry);
     }
 
     protected function initPlugins(RegistryInterface $registry): void
     {
-        $this->initialization->init(RegistryDomain::COLLECTOR, $registry);
+        $this->initialization->initPlugins(RegistryDomain::COLLECTOR, $registry);
     }
 
     public function __invoke(CollectorRegistryUpdateEvent $event): void
     {
         $registry = $event->getRegistry();
+
+        // always init meta data
+        $this->initialization->initMetaData($registry);
+
+        // init rest depending on update type
         $type = $event->getUpdateType();
         switch ($type) {
             case RegistryUpdateType::GLOBAL_CONFIGURATION:

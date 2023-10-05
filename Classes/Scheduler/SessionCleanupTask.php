@@ -12,6 +12,9 @@ use TYPO3\CMS\Scheduler\Task\AbstractTask;
 
 class SessionCleanupTask extends AbstractTask
 {
+    /**
+     * @var int
+     */
     protected const DEFAULT_TIMEOUT = 300;
 
     protected function getTimeout(): int
@@ -39,6 +42,7 @@ class SessionCleanupTask extends AbstractTask
             $found = true;
             $invalidRequestRepository->remove($result);
         }
+
         if ($found) {
             $persistenceManager->persistAll();
         }

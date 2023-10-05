@@ -8,7 +8,9 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 class InvalidRequest extends AbstractEntity
 {
     protected DateTime $tstamp;
+
     protected string $identifier;
+
     protected int $count;
 
     public function __construct()

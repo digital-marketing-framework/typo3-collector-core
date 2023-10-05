@@ -1,8 +1,6 @@
 <?php
 
-if (!defined('TYPO3')) {
-    die('Access denied.');
-}
+defined('TYPO3') || exit('Access denied.');
 
 $ll = 'LLL:EXT:digitalmarketingframework_collector/Resources/Private/Language/locallang_db.xlf:';
 $readOnly = true;

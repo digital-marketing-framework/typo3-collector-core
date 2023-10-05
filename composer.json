@@ -22,7 +22,8 @@
         "php": "^8.1",
         "digital-marketing-framework/collector-core": "^1.0",
         "digital-marketing-framework/typo3-core": "dev-main",
-        "typo3/cms-core": "^11.5 || ^12.4"
+        "typo3/cms-core": "^11.5 || ^12.4",
+        "typo3/cms-scheduler": "^11.5 || ^12.4"
     },
     "require-dev": {
         "mediatis/typo3-coding-standards": "dev-main"

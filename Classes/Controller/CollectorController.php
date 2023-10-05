@@ -11,11 +11,11 @@ use DigitalMarketingFramework\Typo3\Collector\Core\Registry\Registry;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\View\JsonView;
+use TYPO3Fluid\Fluid\View\ViewInterface;
 
 class CollectorController extends ActionController
 {
-    /** @var JsonView */
-    protected $view;
+    protected ViewInterface $view;
 
     /** @var string */
     protected $defaultViewObjectName = JsonView::class;
@@ -36,6 +36,7 @@ class CollectorController extends ActionController
         // TODO should this really be TypoScript? maybe the extension configuration would be more appropriate
         $documentIdentifier = $this->settings['configurationDocument'];
         $configurationStack = $this->configurationDocumentManager->getConfigurationStackFromIdentifier($documentIdentifier);
+
         return new CollectorConfiguration($configurationStack);
     }
 
@@ -44,20 +45,22 @@ class CollectorController extends ActionController
         if ($map === '') {
             $map = $this->settings['defaultTransformation'];
         }
+
         $configuration = $this->getConfiguration();
         $transformation = $this->registry->getDataTransformation($map, $configuration, true);
         $data = [];
         if ($transformation->allowed()) {
-            $data = $this->collector->collect($configuration, invalidIdentifierHandling:true);
+            $data = $this->collector->collect($configuration, invalidIdentifierHandling: true);
             $data = $transformation->transform($data);
             $data = GeneralUtility::castDataToArray($data);
         }
 
-        if (empty($data)) {
+        if ($data === []) {
             $data = false;
         }
 
         $this->view->assign('value', $data);
+
         return $this->htmlResponse();
     }
 }

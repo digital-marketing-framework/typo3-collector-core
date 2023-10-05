@@ -11,6 +11,7 @@ class InvalidRequestRepository extends Repository
     {
         $query = parent::createQuery();
         $query->getQuerySettings()->setStoragePageIds([0]);
+
         return $query;
     }
 
@@ -18,6 +19,7 @@ class InvalidRequestRepository extends Repository
     {
         $query = $this->createQuery();
         $query->matching($query->lessThanOrEqual('tstamp', $expireTimestamp));
+
         return $query->execute();
     }
 }

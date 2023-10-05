@@ -2,16 +2,16 @@
 
 namespace DigitalMarketingFramework\Typo3\Collector\Core\Registry\EventListener;
 
-use DigitalMarketingFramework\Core\Initialization;
+use DigitalMarketingFramework\Collector\Core\Registry\RegistryInterface;
+use DigitalMarketingFramework\Core\InitializationInterface;
 use DigitalMarketingFramework\Core\Registry\RegistryDomain;
 use DigitalMarketingFramework\Core\Registry\RegistryUpdateType;
-use DigitalMarketingFramework\Collector\Core\Registry\RegistryInterface;
 use DigitalMarketingFramework\Typo3\Collector\Core\Registry\Event\CollectorRegistryUpdateEvent;
 
 abstract class AbstractCollectorRegistryUpdateEventListener
 {
     public function __construct(
-        protected Initialization $initialization
+        protected InitializationInterface $initialization
     ) {
     }
 

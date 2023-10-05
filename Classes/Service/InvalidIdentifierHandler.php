@@ -4,7 +4,6 @@ namespace DigitalMarketingFramework\Typo3\Collector\Core\Service;
 
 use DateTime;
 use DigitalMarketingFramework\Collector\Core\Service\InvalidIdentifierHandler as CoreInvalidIdentifierHandler;
-use DigitalMarketingFramework\Collector\Core\Service\InvalidIdentifierHandlerInterface;
 use DigitalMarketingFramework\Core\Context\ContextInterface;
 use DigitalMarketingFramework\Core\GlobalConfiguration\GlobalConfigurationAwareInterface;
 use DigitalMarketingFramework\Core\GlobalConfiguration\GlobalConfigurationAwareTrait;
@@ -16,13 +15,34 @@ class InvalidIdentifierHandler extends CoreInvalidIdentifierHandler implements G
 {
     use GlobalConfigurationAwareTrait;
 
+    /**
+     * @var array<string,mixed>
+     */
+    protected array $settings = [];
+
+    /**
+     * @var bool
+     */
     protected const DEFAULT_ENABLED = false;
+
+    /**
+     * @var int
+     */
     protected const DEFAULT_TIMEOUT = 300;
+
+    /**
+     * @var int
+     */
     protected const DEFAULT_PENALTY_PER_ATTEMPT = 5;
+
+    /**
+     * @var int
+     */
     protected const DEFAULT_MAX_PENALTY = 30;
 
     protected string $identifier;
-    protected ?InvalidRequest $invalidRequest;
+
+    protected ?InvalidRequest $invalidRequest = null;
 
     public function __construct(
         protected PersistenceManager $persistenceManager,
@@ -37,10 +57,11 @@ class InvalidIdentifierHandler extends CoreInvalidIdentifierHandler implements G
 
     protected function getPenalty(int $invalidRequestCount): int
     {
-        $penalty = $invalidRequestCount * $this->settings['penaltyPerAttempt'] ?? static::DEFAULT_PENALTY_PER_ATTEMPT;
+        $penalty = $invalidRequestCount * ($this->settings['penaltyPerAttempt'] ?? static::DEFAULT_PENALTY_PER_ATTEMPT);
         if ($penalty > $this->settings['maxPenalty'] ?? static::DEFAULT_MAX_PENALTY) {
             $penalty = $this->settings['maxPenalty'] ?? static::DEFAULT_MAX_PENALTY;
         }
+
         return $penalty;
     }
 
@@ -48,7 +69,7 @@ class InvalidIdentifierHandler extends CoreInvalidIdentifierHandler implements G
     {
         $this->initRecord();
 
-        if ($this->invalidRequest === null) {
+        if (!$this->invalidRequest instanceof InvalidRequest) {
             return 0;
         }
 
@@ -68,7 +89,7 @@ class InvalidIdentifierHandler extends CoreInvalidIdentifierHandler implements G
 
         $this->initRecord();
 
-        if ($this->invalidRequest !== null) {
+        if ($this->invalidRequest instanceof InvalidRequest) {
             if ($invalidRequestCount > 0) {
                 if ($invalidRequestCount !== $this->invalidRequest->getCount()) {
                     $this->invalidRequest->setTstamp(new DateTime());
@@ -80,15 +101,13 @@ class InvalidIdentifierHandler extends CoreInvalidIdentifierHandler implements G
                 $this->invalidRequestRepository->remove($this->invalidRequest);
                 $this->persistenceManager->persistAll();
             }
-        } else {
-            if ($invalidRequestCount > 0) {
-                $invalidRequest = new InvalidRequest();
-                $invalidRequest->setIdentifier($this->identifier);
-                $invalidRequest->setTstamp(new DateTime());
-                $invalidRequest->setCount($invalidRequestCount);
-                $this->invalidRequestRepository->add($invalidRequest);
-                $this->persistenceManager->persistAll();
-            }
+        } elseif ($invalidRequestCount > 0) {
+            $invalidRequest = new InvalidRequest();
+            $invalidRequest->setIdentifier($this->identifier);
+            $invalidRequest->setTstamp(new DateTime());
+            $invalidRequest->setCount($invalidRequestCount);
+            $this->invalidRequestRepository->add($invalidRequest);
+            $this->persistenceManager->persistAll();
         }
     }
 
@@ -97,12 +116,12 @@ class InvalidIdentifierHandler extends CoreInvalidIdentifierHandler implements G
         $this->settings = $this->globalConfiguration->get('digitalmarketingframework_collector')['botProtection'] ?? [];
 
         $ipAddress = $context->getIpAddress();
-        $this->identifier = $ipAddress === '' ? '' : hash('md5', $ipAddress);
+        $this->identifier = $ipAddress === '' ? '' : hash('md5', (string)$ipAddress);
     }
 
     protected function initRecord(): void
     {
-        if (!isset($this->invalidRequest)) {
+        if (!$this->invalidRequest instanceof InvalidRequest) {
             $this->invalidRequest = null;
             if ($this->identifier !== '') {
                 $this->invalidRequest = $this->invalidRequestRepository->findOneByIdentifier($this->identifier);

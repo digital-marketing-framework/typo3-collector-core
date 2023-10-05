@@ -6,7 +6,7 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
 defined('TYPO3') || die();
 
-(function () {
+(static function () {
     ExtensionUtility::configurePlugin(
         'DigitalmarketingframeworkCollector',
         'AjaxService',
@@ -18,13 +18,11 @@ defined('TYPO3') || die();
             CollectorController::class => 'show',
         ]
     );
-
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][SessionCleanupTask::class] = [
         'extension' => 'digitalmarketingframework_collector',
         'title' => 'Digital Marketing Framework - Collector - Session Cleanup (Bot Protection)',
         'description' => 'Removes expired entries from the bot-protection tables',
     ];
-
     // the "map" argument can safely be excluded from the cHash
     // - because it is filtered in the controller (whitelist)
     // - and because the whole ajax service of this extension is not cached

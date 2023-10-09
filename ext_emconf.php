@@ -2,7 +2,7 @@
 
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Digital Marketing Framework - Collector',
-    'description' => 'Fetch data from different external systems',
+    'description' => 'Fetch user data from different external systems',
     'category' => 'be',
     'author_email' => 'info@mediatis.de',
     'author_company' => 'Mediatis AG',

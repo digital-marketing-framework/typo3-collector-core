@@ -5,9 +5,11 @@
     "type": "typo3-cms-extension",
     "keywords": [
         "TYPO3",
-        "extension",
-        "form",
-        "formrelay"
+        "marketing",
+        "framework",
+        "data",
+        "relay",
+        "collector"
     ],
     "authors": [
         {

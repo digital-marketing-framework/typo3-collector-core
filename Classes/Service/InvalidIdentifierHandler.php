@@ -58,7 +58,7 @@ class InvalidIdentifierHandler extends CoreInvalidIdentifierHandler implements G
     protected function getPenalty(int $invalidRequestCount): int
     {
         $penalty = $invalidRequestCount * ($this->settings['penaltyPerAttempt'] ?? static::DEFAULT_PENALTY_PER_ATTEMPT);
-        if ($penalty > $this->settings['maxPenalty'] ?? static::DEFAULT_MAX_PENALTY) {
+        if ($penalty > ($this->settings['maxPenalty'] ?? static::DEFAULT_MAX_PENALTY)) {
             $penalty = $this->settings['maxPenalty'] ?? static::DEFAULT_MAX_PENALTY;
         }
 

@@ -11,11 +11,10 @@ use DigitalMarketingFramework\Typo3\Collector\Core\Registry\Registry;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\View\JsonView;
-use TYPO3Fluid\Fluid\View\ViewInterface;
 
 class CollectorController extends ActionController
 {
-    protected ViewInterface $view;
+    protected $view;
 
     /** @var string */
     protected $defaultViewObjectName = JsonView::class;

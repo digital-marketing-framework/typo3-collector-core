@@ -1,4 +1,4 @@
-plugin.tx_digitalmarketingframework_collector {
+plugin.tx_dmf_collector_core {
   settings {
     configurationDocument =
     defaultTransformation =

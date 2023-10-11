@@ -22,7 +22,7 @@ class SessionCleanupTask extends AbstractTask
         /** @var ExtensionConfiguration */
         $extensionConfiguration = GeneralUtility::makeInstance(ExtensionConfiguration::class);
         try {
-            return $extensionConfiguration->get('digitalmarketingframework_collector')['botProtection']['timeout'] ?? static::DEFAULT_TIMEOUT;
+            return $extensionConfiguration->get('dmf_collector_core')['botProtection']['timeout'] ?? static::DEFAULT_TIMEOUT;
         } catch (ExtensionConfigurationExtensionNotConfiguredException|ExtensionConfigurationPathDoesNotExistException) {
             return static::DEFAULT_TIMEOUT;
         }

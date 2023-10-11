@@ -113,7 +113,7 @@ class InvalidIdentifierHandler extends CoreInvalidIdentifierHandler implements G
 
     protected function init(ContextInterface $context): void
     {
-        $this->settings = $this->globalConfiguration->get('digitalmarketingframework_collector')['botProtection'] ?? [];
+        $this->settings = $this->globalConfiguration->get('dmf_collector_core')['botProtection'] ?? [];
 
         $ipAddress = $context->getIpAddress();
         $this->identifier = $ipAddress === '' ? '' : hash('md5', (string)$ipAddress);

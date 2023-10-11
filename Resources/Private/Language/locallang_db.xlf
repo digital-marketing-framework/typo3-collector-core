@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2023-01-12T12:47:01Z" product-name="digitalmarketingframework_collector">
+	<file source-language="en" datatype="plaintext" original="messages" date="2023-01-12T12:47:01Z" product-name="dmf_collector_core">
 		<header/>
 		<body>
-			<trans-unit id="tx_digitalmarketingframework_domain_model_invalidrequest">
+			<trans-unit id="tx_dmfcollectorcore_domain_model_invalidrequest">
 				<source>Invalid Request</source>
 			</trans-unit>
-			<trans-unit id="tx_digitalmarketingframework_domain_model_invalidrequest.tstamp">
+			<trans-unit id="tx_dmfcollectorcore_domain_model_invalidrequest.tstamp">
 				<source>Timestamp</source>
 			</trans-unit>
-			<trans-unit id="tx_digitalmarketingframework_domain_model_invalidrequest.identifier">
+			<trans-unit id="tx_dmfcollectorcore_domain_model_invalidrequest.identifier">
 				<source>Identifier</source>
 			</trans-unit>
-			<trans-unit id="tx_digitalmarketingframework_domain_model_invalidrequest.count">
+			<trans-unit id="tx_dmfcollectorcore_domain_model_invalidrequest.count">
 				<source>Count</source>
 			</trans-unit>
 		</body>

@@ -1,7 +1,5 @@
 <?php
 
-// TODO is this config file still necessary?
-
 declare(strict_types=1);
 
 use DigitalMarketingFramework\Typo3\Collector\Core\Domain\Model\InvalidRequest;

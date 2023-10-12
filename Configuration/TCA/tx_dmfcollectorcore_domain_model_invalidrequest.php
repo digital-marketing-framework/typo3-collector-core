@@ -2,15 +2,15 @@
 
 defined('TYPO3') || exit('Access denied.');
 
-$ll = 'LLL:EXT:digitalmarketingframework_collector/Resources/Private/Language/locallang_db.xlf:';
+$ll = 'LLL:EXT:dmf_collector_core/Resources/Private/Language/locallang_db.xlf:';
 $readOnly = true;
 
-$GLOBALS['TCA']['tx_digitalmarketingframework_domain_model_invalidrequest'] = [
+$GLOBALS['TCA']['tx_dmfcollectorcore_domain_model_invalidrequest'] = [
     'ctrl' => [
         'label' => 'tstamp',
         'tstamp' => 'tstamp',
-        'title' => $ll . 'tx_digitalmarketingframework_domain_model_invalidrequest',
-        'iconfile' => 'EXT:digitalmarketingframework_collector/Resources/Public/Icons/InvalidRequest.svg',
+        'title' => $ll . 'tx_dmfcollectorcore_domain_model_invalidrequest',
+        'iconfile' => 'EXT:dmf_collector_core/Resources/Public/Icons/InvalidRequest.svg',
         'adminOnly' => true,
         'default_sortby' => 'tstamp',
     ],
@@ -27,7 +27,7 @@ $GLOBALS['TCA']['tx_digitalmarketingframework_domain_model_invalidrequest'] = [
     ],
     'columns' => [
         'tstamp' => [
-            'label' => $ll . 'tx_digitalmarketingframework_domain_model_invalidrequest.tstamp',
+            'label' => $ll . 'tx_dmfcollectorcore_domain_model_invalidrequest.tstamp',
             'config' => [
                 'type' => 'input',
                 'size' => '13',
@@ -37,7 +37,7 @@ $GLOBALS['TCA']['tx_digitalmarketingframework_domain_model_invalidrequest'] = [
             ],
         ],
         'identifier' => [
-            'label' => $ll . 'tx_digitalmarketingframework_domain_model_invalidrequest.identifier',
+            'label' => $ll . 'tx_dmfcollectorcore_domain_model_invalidrequest.identifier',
             'config' => [
                 'type' => 'input',
                 'size' => '20',
@@ -45,7 +45,7 @@ $GLOBALS['TCA']['tx_digitalmarketingframework_domain_model_invalidrequest'] = [
             ],
         ],
         'count' => [
-            'label' => $ll . 'tx_digitalmarketingframework_domain_model_invalidrequest.count',
+            'label' => $ll . 'tx_dmfcollectorcore_domain_model_invalidrequest.count',
             'config' => [
                 'type' => 'input',
                 'size' => '20',

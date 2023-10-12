@@ -43,17 +43,17 @@
     },
     "config": {
         "allow-plugins": {
-            "typo3/cms-composer-installers": true,
-            "typo3/class-alias-loader": true,
+            "ergebnis/composer-normalize": true,
             "phpstan/extension-installer": true,
-            "ergebnis/composer-normalize": true
+            "typo3/class-alias-loader": true,
+            "typo3/cms-composer-installers": true
         },
         "bin-dir": ".Build/bin",
         "vendor-dir": ".Build/vendor"
     },
     "extra": {
         "typo3/cms": {
-            "extension-key": "digitalmarketingframework_collector",
+            "extension-key": "dmf_collector_core",
             "web-dir": ".Build/Web"
         }
     },
@@ -129,7 +129,7 @@
         "fix:php:rector": "rector",
         "link-extension": [
             "@php -r 'is_dir($extFolder=__DIR__.\"/.Build/Web/typo3conf/ext/\") || mkdir($extFolder, 0777, true);'",
-            "@php -r 'file_exists($extFolder=__DIR__.\"/.Build/Web/typo3conf/ext/digitalmarketingframework_collector\") || symlink(__DIR__,$extFolder);'"
+            "@php -r 'file_exists($extFolder=__DIR__.\"/.Build/Web/typo3conf/ext/dmf_collector_core\") || symlink(__DIR__,$extFolder);'"
         ],
         "phpstan:baseline": ".Build/bin/phpstan  --generate-baseline=.phpstan/phpstan-baseline.neon",
         "prepare-release": [

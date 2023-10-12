@@ -1,13 +1,13 @@
 
-plugin.tx_digitalmarketingframework_collector {
+plugin.tx_dmf_collector_core {
   settings {
-    configurationDocument = {$plugin.tx_digitalmarketingframework_collector.settings.configurationDocument}
-    defaultTransformation = {$plugin.tx_digitalmarketingframework_collector.settings.defaultTransformation}
+    configurationDocument = {$plugin.tx_dmf_collector_core.settings.configurationDocument}
+    defaultTransformation = {$plugin.tx_dmf_collector_core.settings.defaultTransformation}
   }
 }
 
-digitalmarketingframework_collector_ajax_service = PAGE
-digitalmarketingframework_collector_ajax_service {
+dmf_collector_core_ajax_service = PAGE
+dmf_collector_core_ajax_service {
     config {
         debug = 0
         disableAllHeaderCode = 1
@@ -21,15 +21,15 @@ digitalmarketingframework_collector_ajax_service {
     10 {
       userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
       vendorName = DigitalMarketingFramework
-      extensionName = DigitalmarketingframeworkCollector
+      extensionName = DmfCollectorCore
       pluginName = AjaxService
       controller = Collector
-      settings < plugin.tx_digitalmarketingframework_collector.settings
+      settings < plugin.tx_dmf_collector_core.settings
     }
 }
 
-["{$plugin.tx_digitalmarketingframework_collector.settings.globalJsInclude}" == "header"]
-page.includeJSlibs.digitalMarketingFrameworkCollector = EXT:digitalmarketingframework_collector/Resources/Public/JavaScript/digital-marketing-framework-collector.js
-["{$plugin.tx_digitalmarketingframework_collector.settings.globalJsInclude}" == "footer"]
-page.includeJSFooterlibs.digitalMarketingFrameworkCollector = EXT:digitalmarketingframework_collector/Resources/Public/JavaScript/digital-marketing-framework-collector.js
+["{$plugin.tx_dmf_collector_core.settings.globalJsInclude}" == "header"]
+page.includeJSlibs.digitalMarketingFrameworkCollector = EXT:dmf_collector_core/Resources/Public/JavaScript/digital-marketing-framework-collector.js
+["{$plugin.tx_dmf_collector_core.settings.globalJsInclude}" == "footer"]
+page.includeJSFooterlibs.digitalMarketingFrameworkCollector = EXT:dmf_collector_core/Resources/Public/JavaScript/digital-marketing-framework-collector.js
 [global]

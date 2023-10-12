@@ -6,6 +6,6 @@ use DigitalMarketingFramework\Typo3\Collector\Core\Domain\Model\InvalidRequest;
 
 return [
     InvalidRequest::class => [
-        'tableName' => 'tx_digitalmarketingframework_domain_model_invalidrequest',
+        'tableName' => 'tx_dmfcollectorcore_domain_model_invalidrequest',
     ],
 ];

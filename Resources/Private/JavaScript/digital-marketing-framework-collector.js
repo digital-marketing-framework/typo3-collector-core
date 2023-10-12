@@ -18,7 +18,7 @@
   // function getUrl(map) {
   //   let url = '/?type=1490631647';
   //   if (map) {
-  //     url += '&tx_digitalmarketingframeworkcollector_ajaxservice[map]=' + encodeURIComponent(map);
+  //     url += '&tx_dmfcollectorcore_ajaxservice[map]=' + encodeURIComponent(map);
   //   }
   //   return url;
   // }

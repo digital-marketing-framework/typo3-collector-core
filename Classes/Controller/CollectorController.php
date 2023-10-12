@@ -14,8 +14,6 @@ use TYPO3\CMS\Extbase\Mvc\View\JsonView;
 
 class CollectorController extends ActionController
 {
-    protected $view;
-
     /** @var string */
     protected $defaultViewObjectName = JsonView::class;
 
@@ -41,17 +39,20 @@ class CollectorController extends ActionController
 
     public function showAction(string $map = ''): ResponseInterface
     {
+        $configuration = $this->getConfiguration();
+
         if ($map === '') {
-            $map = $this->settings['defaultTransformation'];
+            $map = $configuration->getDefaultDataTransformationName();
         }
 
-        $configuration = $this->getConfiguration();
-        $transformation = $this->registry->getDataTransformation($map, $configuration, true);
         $data = [];
-        if ($transformation->allowed()) {
-            $data = $this->collector->collect($configuration, invalidIdentifierHandling: true);
-            $data = $transformation->transform($data);
-            $data = GeneralUtility::castDataToArray($data);
+        if ($map !== '' && $configuration->dataTransformationExists($map)) {
+            $transformation = $this->registry->getDataTransformation($map, $configuration, true);
+            if ($transformation->allowed()) {
+                $data = $this->collector->collect($configuration, invalidIdentifierHandling: true);
+                $data = $transformation->transform($data);
+                $data = GeneralUtility::castDataToArray($data);
+            }
         }
 
         if ($data === []) {

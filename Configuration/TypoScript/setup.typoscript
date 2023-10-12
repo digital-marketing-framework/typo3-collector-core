@@ -2,7 +2,6 @@
 plugin.tx_dmf_collector_core {
   settings {
     configurationDocument = {$plugin.tx_dmf_collector_core.settings.configurationDocument}
-    defaultTransformation = {$plugin.tx_dmf_collector_core.settings.defaultTransformation}
   }
 }
 

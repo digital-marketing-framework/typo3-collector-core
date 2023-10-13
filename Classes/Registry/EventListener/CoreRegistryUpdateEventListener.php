@@ -9,6 +9,6 @@ class CoreRegistryUpdateEventListener extends AbstractCoreRegistryUpdateEventLis
 {
     public function __construct()
     {
-        parent::__construct(new CollectorCoreInitialization());
+        parent::__construct(new CollectorCoreInitialization('dmf_collector_core'));
     }
 }

@@ -14,7 +14,7 @@ class CollectorRegistryUpdateEventListener extends AbstractCollectorRegistryUpda
         protected PersistenceManager $persistenceManager,
         protected InvalidRequestRepository $failedAttemptRepository,
     ) {
-        parent::__construct(new CollectorCoreInitialization());
+        parent::__construct(new CollectorCoreInitialization('dmf_collector_core'));
     }
 
     protected function initServices(RegistryInterface $registry): void

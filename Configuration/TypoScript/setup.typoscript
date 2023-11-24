@@ -1,7 +1,6 @@
 
 plugin.tx_dmf_collector_core {
   settings {
-    configurationDocument = {$plugin.tx_dmf_collector_core.settings.configurationDocument}
   }
 }
 

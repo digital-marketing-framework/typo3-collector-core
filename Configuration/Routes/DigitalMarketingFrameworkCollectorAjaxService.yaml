@@ -1,19 +1,25 @@
 routeEnhancers:
   PageTypeSuffix:
     map:
-      ajax-user-data.json: 1673463849
+      dmf-fetch.json: 1673463849
   DmfCollectorCore:
     type: Extbase
     extension: DmfCollectorCore
     plugin: AjaxService
     routes:
-      - routePath: "digital-marketing-framework"
-        _controller: "Collector::show"
-      - routePath: "digital-marketing-framework/{map}"
-        _controller: "Collector::show"
+      - routePath: "digital-marketing-framework/user-data"
+        _controller: "Collector::showUserData"
+      - routePath: "digital-marketing-framework/user-data/{map}"
+        _controller: "Collector::showUserData"
         _arguments:
           map: map
-    defaultController: "Collector::show"
-
+      - routePath: "digital-marketing-framework/content-modifier/{plugin}/{name}"
+        _controller: "Collector::showContentModifier"
+        _arguments:
+          plugin: plugin
+          name: name
+    defaultController: "Collector::showContentModifier"
     requirements:
       map: "[a-z][a-zA-Z]*"
+      plugin: "[a-z][a-zA-Z]*"
+      name: "[a-z][a-zA-Z]*"

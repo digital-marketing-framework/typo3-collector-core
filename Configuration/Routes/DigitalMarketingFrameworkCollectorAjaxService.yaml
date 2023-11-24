@@ -20,6 +20,6 @@ routeEnhancers:
           name: name
     defaultController: "Collector::showContentModifier"
     requirements:
-      map: "[a-z][a-zA-Z]*"
-      plugin: "[a-z][a-zA-Z]*"
-      name: "[a-z][a-zA-Z]*"
+      map: "[-_a-z][a-zA-Z]*"
+      plugin: "[-_a-z][a-zA-Z]*"
+      name: "[-_a-z][a-zA-Z]*"

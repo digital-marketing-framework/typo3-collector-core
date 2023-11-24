@@ -55,10 +55,10 @@ class FrontendJavaScriptSettingsUpdateEventListener
                     pluginName: 'AjaxService',
                     controllerName: 'Collector',
                     actionName: 'showContentModifier',
-                    controllerArguments: ['plugin' => $keyword, 'version' => $name]
+                    controllerArguments: ['plugin' => $keyword, 'name' => $name]
                 );
 
-            $event->addJavaScriptPlugin('content-modifier', $keyword . '-' . $name, url: $uri, settings: []);
+            $event->addJavaScriptPlugin('contentModifier', $keyword . '-' . $name, url: $uri, settings: []);
         }
     }
 }

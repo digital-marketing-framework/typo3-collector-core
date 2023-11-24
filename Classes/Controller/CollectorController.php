@@ -34,7 +34,7 @@ class CollectorController extends ActionController
 
     protected function getConfiguration(): CollectorConfigurationInterface
     {
-        $documentIdentifier = $this->glboalConfiguration->get('core')['configurationStorage']['defaultConfigurationDocument'] ?? '';
+        $documentIdentifier = $this->globalConfiguration->get('core')['configurationStorage']['defaultConfigurationDocument'] ?? '';
         if ($documentIdentifier === '') {
             throw new DigitalMarketingFrameworkException('No default configuration document identifier given');
         }
@@ -71,11 +71,15 @@ class CollectorController extends ActionController
         return $this->htmlResponse();
     }
 
-    public function showContentModifierAction(string $plugin): ResponseInterface
+    public function showContentModifierAction(string $plugin, string $name): ResponseInterface
     {
-        $data = ['hello' => 'world'];
+        $configuration = $this->getConfiguration();
+        $contentModifierId = $configuration->getContentModifierIdFromName($name);
+        $contentModifier = $this->registry->getContentModifier($configuration, $contentModifierId);
 
+        $data = $contentModifier->getFrontendData();
         $this->view->assign('value', $data);
+
         return $this->htmlResponse();
     }
 }

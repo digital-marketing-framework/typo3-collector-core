@@ -5,9 +5,8 @@ namespace DigitalMarketingFramework\Typo3\Collector\Core\Controller\EventListene
 use DigitalMarketingFramework\Collector\Core\Model\Configuration\CollectorConfiguration;
 use DigitalMarketingFramework\Collector\Core\Model\Configuration\CollectorConfigurationInterface;
 use DigitalMarketingFramework\Core\ConfigurationDocument\ConfigurationDocumentManagerInterface;
-use DigitalMarketingFramework\Core\Exception\DigitalMarketingFrameworkException;
-use DigitalMarketingFramework\Typo3\Core\Controller\Event\FrontendJavaScriptSettingsUpdateEvent;
 use DigitalMarketingFramework\Typo3\Collector\Core\Registry\Registry;
+use DigitalMarketingFramework\Typo3\Core\Controller\Event\FrontendJavaScriptSettingsUpdateEvent;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 
 class FrontendJavaScriptSettingsUpdateEventListener
@@ -45,6 +44,7 @@ class FrontendJavaScriptSettingsUpdateEventListener
                 'arguments' => ['plugin' => $keyword, 'name' => $name],
             ];
         }
+
         return $result;
     }
 
@@ -64,6 +64,7 @@ class FrontendJavaScriptSettingsUpdateEventListener
                 'arguments' => ['map' => $transformationName],
             ];
         }
+
         return $result;
     }
 

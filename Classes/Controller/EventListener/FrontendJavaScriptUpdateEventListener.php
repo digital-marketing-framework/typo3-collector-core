@@ -2,8 +2,8 @@
 
 namespace DigitalMarketingFramework\Typo3\Collector\Core\Controller\EventListener;
 
-use DigitalMarketingFramework\Typo3\Core\Controller\Event\FrontendJavaScriptUpdateEvent;
 use DigitalMarketingFramework\Typo3\Collector\Core\Registry\Registry;
+use DigitalMarketingFramework\Typo3\Core\Controller\Event\FrontendJavaScriptUpdateEvent;
 
 class FrontendJavaScriptUpdateEventListener
 {

@@ -27,6 +27,9 @@ class FrontendJavaScriptSettingsUpdateEventListener
         return new CollectorConfiguration($configurationStack);
     }
 
+    /**
+     * @return array<array{type:string,plugin:string,settings:array<string,mixed>,action:string,arguments:array<string,mixed>}>
+     */
     protected function processContentModifiers(CollectorConfigurationInterface $configuration): array
     {
         $result = [];
@@ -49,7 +52,7 @@ class FrontendJavaScriptSettingsUpdateEventListener
     }
 
     /**
-     * @return array<array{type:string,plugin:string,settings:array<string,mixed>,action:string,arguments:array<string,mixed>}
+     * @return array<array{type:string,plugin:string,settings:array<string,mixed>,action:string,arguments:array<string,mixed>}>
      */
     protected function processDataTransformations(CollectorConfigurationInterface $configuration): array
     {
@@ -69,7 +72,7 @@ class FrontendJavaScriptSettingsUpdateEventListener
     }
 
     /**
-     * @param array<array{type:string,plugin:string,settings:array<string,mixed>,action:string,arguments:array<string,mixed>} $plugins
+     * @param array<array{type:string,plugin:string,settings:array<string,mixed>,action:string,arguments:array<string,mixed>}> $plugins
      */
     protected function addPlugins(FrontendJavaScriptSettingsUpdateEvent $event, int $rootPageId, array $plugins): void
     {

@@ -2,6 +2,7 @@
 
 namespace DigitalMarketingFramework\Typo3\Collector\Core\Controller;
 
+use DigitalMarketingFramework\Collector\Core\ContentModifier\FrontendContentModifierInterface;
 use DigitalMarketingFramework\Collector\Core\Model\Configuration\CollectorConfiguration;
 use DigitalMarketingFramework\Collector\Core\Model\Configuration\CollectorConfigurationInterface;
 use DigitalMarketingFramework\Collector\Core\Service\CollectorInterface;
@@ -66,9 +67,14 @@ class CollectorController extends ActionController
     {
         $configuration = $this->getConfiguration();
         $contentModifierId = $configuration->getContentModifierIdFromName($name);
-        $contentModifier = $this->registry->getContentModifier($configuration, $contentModifierId);
+        $contentModifier = $this->registry->getFrontendContentModifier($configuration, $contentModifierId);
 
-        $data = $contentModifier->getFrontendData();
+        $data = false;
+
+        if ($contentModifier instanceof FrontendContentModifierInterface) {
+            $data = $contentModifier->getFrontendData();
+        }
+
         $this->view->assign('value', $data);
 
         return $this->htmlResponse();

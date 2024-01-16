@@ -11,20 +11,24 @@ defined('TYPO3') || die();
         'DmfCollectorCore',
         'AjaxService',
         [
-            CollectorController::class => 'show',
+            CollectorController::class => 'showUserData,showContentModifier',
         ],
         // non-cacheable actions
         [
-            CollectorController::class => 'show',
+            CollectorController::class => 'showUserData,showContentModifier',
         ]
     );
+
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][SessionCleanupTask::class] = [
         'extension' => 'dmf_collector_core',
         'title' => 'Digital Marketing Framework - Collector - Session Cleanup (Bot Protection)',
         'description' => 'Removes expired entries from the bot-protection tables',
     ];
-    // the "map" argument can safely be excluded from the cHash
-    // - because it is filtered in the controller (whitelist)
+
+    // the  arguments "map", "plugin" and "name" can safely be excluded from the cHash
+    // - because they are filtered and validated in the controller
     // - and because the whole ajax service of this extension is not cached
     $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = 'tx_dmfcollectorcore_ajaxservice[map]';
+    $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = 'tx_dmfcollectorcore_ajaxservice[plugin]';
+    $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = 'tx_dmfcollectorcore_ajaxservice[name]';
 })();

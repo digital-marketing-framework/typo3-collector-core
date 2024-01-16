@@ -1,7 +1,6 @@
 
 plugin.tx_dmf_collector_core {
   settings {
-    configurationDocument = {$plugin.tx_dmf_collector_core.settings.configurationDocument}
   }
 }
 
@@ -26,9 +25,3 @@ dmf_collector_core_ajax_service {
       settings < plugin.tx_dmf_collector_core.settings
     }
 }
-
-["{$plugin.tx_dmf_collector_core.settings.globalJsInclude}" == "header"]
-page.includeJSlibs.digitalMarketingFrameworkCollector = EXT:dmf_collector_core/Resources/Public/JavaScript/digital-marketing-framework-collector.js
-["{$plugin.tx_dmf_collector_core.settings.globalJsInclude}" == "footer"]
-page.includeJSFooterlibs.digitalMarketingFrameworkCollector = EXT:dmf_collector_core/Resources/Public/JavaScript/digital-marketing-framework-collector.js
-[global]

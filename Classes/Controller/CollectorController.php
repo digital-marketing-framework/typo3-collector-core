@@ -2,6 +2,7 @@
 
 namespace DigitalMarketingFramework\Typo3\Collector\Core\Controller;
 
+use DigitalMarketingFramework\Collector\Core\ContentModifier\FrontendContentModifierInterface;
 use DigitalMarketingFramework\Collector\Core\Model\Configuration\CollectorConfiguration;
 use DigitalMarketingFramework\Collector\Core\Model\Configuration\CollectorConfigurationInterface;
 use DigitalMarketingFramework\Collector\Core\Service\CollectorInterface;
@@ -30,14 +31,12 @@ class CollectorController extends ActionController
 
     protected function getConfiguration(): CollectorConfigurationInterface
     {
-        // TODO should this really be TypoScript? maybe the extension configuration would be more appropriate
-        $documentIdentifier = $this->settings['configurationDocument'];
-        $configurationStack = $this->configurationDocumentManager->getConfigurationStackFromIdentifier($documentIdentifier);
+        $configurationStack = $this->configurationDocumentManager->getDefaultConfigurationStack();
 
         return new CollectorConfiguration($configurationStack);
     }
 
-    public function showAction(string $map = ''): ResponseInterface
+    public function showUserDataAction(string $map = ''): ResponseInterface
     {
         $configuration = $this->getConfiguration();
 
@@ -57,6 +56,23 @@ class CollectorController extends ActionController
 
         if ($data === []) {
             $data = false;
+        }
+
+        $this->view->assign('value', $data);
+
+        return $this->htmlResponse();
+    }
+
+    public function showContentModifierAction(string $plugin, string $name): ResponseInterface
+    {
+        $configuration = $this->getConfiguration();
+        $contentModifierId = $configuration->getContentModifierIdFromName($name);
+        $contentModifier = $this->registry->getFrontendContentModifier($configuration, $contentModifierId);
+
+        $data = false;
+
+        if ($contentModifier instanceof FrontendContentModifierInterface) {
+            $data = $contentModifier->getFrontendData();
         }
 
         $this->view->assign('value', $data);

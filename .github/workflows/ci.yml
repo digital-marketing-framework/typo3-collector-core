@@ -1,4 +1,3 @@
-name: 'CI with Composer scripts'
 'on':
     push:
         branches:
@@ -6,8 +5,6 @@ name: 'CI with Composer scripts'
     pull_request:
         branches:
             - main
-permissions:
-    contents: read
 jobs:
     php-lint:
         name: 'PHP linter'
@@ -32,9 +29,6 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                php-version:
-                    - '8.1'
-                    - '8.2'
                 php_version:
                     - 8.1
                     - 8.2
@@ -74,16 +68,6 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                command:
-                    - 'composer:normalize'
-                    - 'composer:psr-verify'
-                    - 'json:lint'
-                    - 'php:rector'
-                    - 'php:cs-fixer'
-                    - 'php:stan'
-                php-version:
-                    - '8.1'
-                    - '8.2'
                 php_version:
                     - 8.1
                     - 8.2

@@ -8,17 +8,11 @@ services:
     resource: '../Classes/*'
     exclude: '../Classes/Domain/Model/*'
 
-  # REST API
-  DigitalMarketingFramework\Typo3\Collector\Core\Api\EventListener\ApiRouteResolversUpdateEventListener:
-    tags:
-        - name: event.listener
-          event: DigitalMarketingFramework\Typo3\Core\Api\Event\ApiRouteResolversUpdateEvent
-
-  # configuration document meta data update listeners
-  DigitalMarketingFramework\Typo3\Collector\Core\ConfigurationDocument\EventListener\ConfigurationDocumentMetaDataUpdateEventListener:
+  # registry collection
+  DigitalMarketingFramework\Typo3\Collector\Core\Registry\EventListener\RegistryCollectionEventListener:
     tags:
       - name: event.listener
-        event: DigitalMarketingFramework\Typo3\Core\ConfigurationDocument\Event\ConfigurationDocumentMetaDataUpdateEvent
+        event: DigitalMarketingFramework\Core\Registry\RegistryCollection
 
   # registry update listeners
   DigitalMarketingFramework\Typo3\Collector\Core\Registry\EventListener\CollectorRegistryUpdateEventListener:
@@ -30,15 +24,3 @@ services:
     tags:
       - name: event.listener
         event: DigitalMarketingFramework\Typo3\Core\Registry\Event\CoreRegistryUpdateEvent
-
-  # frontend scripts updates
-  DigitalMarketingFramework\Typo3\Collector\Core\Api\EventListener\FrontendJavaScriptUpdateEventListener:
-    tags:
-      - name: event.listener
-        event: DigitalMarketingFramework\Typo3\Core\Api\Event\FrontendJavaScriptUpdateEvent
-
-  # frontend js settings build listeners
-  DigitalMarketingFramework\Typo3\Collector\Core\Api\EventListener\FrontendJavaScriptSettingsUpdateEventListener:
-    tags:
-      - name: event.listener
-        event: DigitalMarketingFramework\Typo3\Core\Api\Event\FrontendJavaScriptSettingsUpdateEvent

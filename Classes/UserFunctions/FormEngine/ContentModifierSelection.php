@@ -28,6 +28,9 @@ class ContentModifierSelection
         $this->configurationDocumentManager = $this->registry->getConfigurationDocumentManager();
     }
 
+    /**
+     * @param array<string,mixed> $params
+     */
     protected function pluginTypeAllowed(array $params, string $type): bool
     {
         $allowedTypes = trim($params['config']['allowedPluginTypes'] ?? '');
@@ -44,9 +47,13 @@ class ContentModifierSelection
     protected function getConfigurationFromEndPoint(EndPointInterface $endPoint): CollectorConfigurationInterface
     {
         $configStack = $this->configurationDocumentManager->getConfigurationStackFromDocument($endPoint->getConfigurationDocument());
+
         return new CollectorConfiguration($configStack);
     }
 
+    /**
+     * @param array<string,mixed> $params
+     */
     public function getEndPoints(array &$params): void
     {
         $endPoints = $this->endPointStorage->getAllEndPoints();
@@ -62,6 +69,9 @@ class ContentModifierSelection
         }
     }
 
+    /**
+     * @return array<string,array<string>>
+     */
     protected function getContentModifierMetaData(string $endPointName): array
     {
         $result = [];
@@ -77,9 +87,13 @@ class ContentModifierSelection
                 $result[$plugin][] = $name;
             }
         }
+
         return $result;
     }
 
+    /**
+     * @param array<string,mixed> $params
+     */
     protected function getCurrentValue(array $params, string $field): string
     {
         $value = $params['row'][$field] ?? '';
@@ -91,6 +105,9 @@ class ContentModifierSelection
         return $value;
     }
 
+    /**
+     * @param array<string,mixed> $params
+     */
     public function getPluginTypesAndNames(array &$params): void
     {
         $endPointName = $this->getCurrentValue($params, 'settings.endPoint');

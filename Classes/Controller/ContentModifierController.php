@@ -29,6 +29,9 @@ class ContentModifierController extends ActionController
         $this->configurationDocumentManager = $this->registry->getConfigurationDocumentManager();
     }
 
+    /**
+     * @return array<string,mixed>
+     */
     protected function getContentConfiguration(string $publicKey): array
     {
         $document = $this->settings['contentConfiguration'] ?? '';
@@ -57,14 +60,14 @@ class ContentModifierController extends ActionController
     {
         $endPoint = $this->getEndPoint();
 
-        if ($endPoint === null) {
+        if (!$endPoint instanceof EndPointInterface) {
             return null;
         }
 
         $type = '';
         $name = '';
 
-        $typeAndName = $this->settings['contentModifierTypeAndName'] ?? '';
+        $typeAndName = (string)($this->settings['contentModifierTypeAndName'] ?? '');
         if ($typeAndName !== '') {
             $type = explode(':', $typeAndName)[0] ?? '';
             $name = explode(':', $typeAndName)[1] ?? '';
@@ -122,6 +125,7 @@ class ContentModifierController extends ActionController
         $endPoint = $this->getEndPoint();
         $contentModifier = $this->getContentModifier();
         $rendered = $this->renderContentModifier($endPoint, $contentModifier);
+
         return $this->htmlResponse($rendered);
     }
 }

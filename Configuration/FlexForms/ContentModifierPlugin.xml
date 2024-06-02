@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3DataStructure>
+    <sheets>
+        <sDEF>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>DMF Content</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <settings.endPoint>
+                        <TCEforms>
+                            <label>End Point</label>
+                            <onChange>reload</onChange>
+                            <config>
+                                <type>select</type>
+                                <renderType>selectSingle</renderType>
+                                <items>
+                                    <numIndex index="0">
+                                        <numIndex index="0">Please select</numIndex>
+                                        <numIndex index="1"/>
+                                    </numIndex>
+                                </items>
+                                <itemsProcFunc>DigitalMarketingFramework\Typo3\Collector\Core\UserFunctions\FormEngine\ContentModifierSelection->getEndPoints</itemsProcFunc>
+                            </config>
+                        </TCEforms>
+                    </settings.endPoint>
+
+                    <settings.contentModifierTypeAndName>
+                        <TCEforms>
+                            <label>Content Plugin Type</label>
+                            <onChange>reload</onChange>
+                            <config>
+                                <type>select</type>
+                                <renderType>selectSingle</renderType>
+                                <items>
+                                    <numIndex index="0">
+                                        <numIndex index="0">Please select</numIndex>
+                                        <numIndex index="1"/>
+                                    </numIndex>
+                                </items>
+                                <!--<allowedPluginTypes>myContentModifierA,modifierB</allowedPluginTypes>-->
+                                <itemsProcFunc>DigitalMarketingFramework\Typo3\Collector\Core\UserFunctions\FormEngine\ContentModifierSelection->getPluginTypesAndNames</itemsProcFunc>
+                            </config>
+                        </TCEforms>
+                    </settings.contentModifierTypeAndName>
+
+                    <settings.contentConfiguration>
+                        <TCEforms>
+                            <label>Content Configuration</label>
+                            <config>
+                                <type>text</type>
+                                <renderType>digitalMarketingFrameworkConfigurationEditorTextFieldElement</renderType>
+                                <mode>modal</mode>
+                                <ajaxControllerBaseRoute>contentmodifier</ajaxControllerBaseRoute>
+                                <ajaxControllerSupportsIncludes>0</ajaxControllerSupportsIncludes>
+                                <additionalFlexFormSettingsAjaxControllerParameters>endPoint,contentModifierTypeAndName</additionalFlexFormSettingsAjaxControllerParameters>
+                                <cols>30</cols>
+                                <rows>10</rows>
+                            </config>
+                        </TCEforms>
+                    </settings.contentConfiguration>
+
+                </el>
+            </ROOT>
+        </sDEF>
+    </sheets>
+</T3DataStructure>

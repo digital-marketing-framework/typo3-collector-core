@@ -8,13 +8,13 @@ services:
     resource: '../Classes/*'
     exclude: '../Classes/Domain/Model/*'
 
-  # configuration document meta data update listeners
-  DigitalMarketingFramework\Typo3\Collector\Core\ConfigurationDocument\EventListener\ConfigurationDocumentMetaDataUpdateEventListener:
+  # registry collection
+  DigitalMarketingFramework\Typo3\Collector\Core\Registry\EventListener\RegistryCollectionEventListener:
     tags:
       - name: event.listener
-        event: DigitalMarketingFramework\Typo3\Core\ConfigurationDocument\Event\ConfigurationDocumentMetaDataUpdateEvent
+        event: DigitalMarketingFramework\Typo3\Core\Registry\RegistryCollection
 
-  # registry update listeners
+  # registry
   DigitalMarketingFramework\Typo3\Collector\Core\Registry\EventListener\CollectorRegistryUpdateEventListener:
     tags:
       - name: event.listener
@@ -25,14 +25,6 @@ services:
       - name: event.listener
         event: DigitalMarketingFramework\Typo3\Core\Registry\Event\CoreRegistryUpdateEvent
 
-  # frontend scripts updates
-  DigitalMarketingFramework\Typo3\Collector\Core\Controller\EventListener\FrontendJavaScriptUpdateEventListener:
-    tags:
-      - name: event.listener
-        event: DigitalMarketingFramework\Typo3\Core\Controller\Event\FrontendJavaScriptUpdateEvent
-
-  # frontend js settings build listeners
-  DigitalMarketingFramework\Typo3\Collector\Core\Controller\EventListener\FrontendJavaScriptSettingsUpdateEventListener:
-    tags:
-      - name: event.listener
-        event: DigitalMarketingFramework\Typo3\Core\Controller\Event\FrontendJavaScriptSettingsUpdateEvent
+  # REST API
+  DigitalMarketingFramework\Typo3\Collector\Core\Controller\ContentModifierAjaxController:
+    public: true

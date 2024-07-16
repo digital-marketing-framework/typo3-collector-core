@@ -1,0 +1,35 @@
+TYPO3:
+    CMS:
+        Form:
+            formManager:
+                translationFiles:
+                    1720107728: 'EXT:dmf_collector_core/Resources/Private/Language/Database.xlf'
+            prototypes:
+                standard:
+                    formEngine:
+                        translationFiles:
+                            1720107728: 'EXT:dmf_collector_core/Resources/Private/Language/Database.xlf'
+
+                    formEditor:
+                        translationFiles:
+                            1720107728: 'EXT:dmf_collector_core/Resources/Private/Language/Database.xlf'
+
+                        dynamicRequireJsModules:
+                            additionalViewModelModules:
+                                1684239328: 'TYPO3/CMS/DmfCollectorCore/Backend/FormEditor/DmfContentModifierConfigTextareaViewModel'
+                        formEditorFluidConfiguration:
+                            partialRootPaths:
+                                1684239328: 'EXT:dmf_collector_core/Resources/Private/Extensions/form/Backend/Partials/FormEditor/'
+                                1684773503: 'EXT:dmf_core/Resources/Private/Backend/Partials/'
+                        formEditorPartials:
+                            Inspector-DmfContentModifierConfigTextarea: Inspector/DmfContentModifierConfigTextarea
+
+                    formElementsDefinition:
+                        Form:
+                            formEditor:
+                                editors:
+                                    844:
+                                        identifier: 'dependencyScript'
+                                        templateName: 'Inspector-DmfContentModifierConfigTextarea'
+                                        label: 'formEditor.elements.Form.editor.contentModifiers.label'
+                                        propertyPath: 'renderingOptions.contentModifiers'

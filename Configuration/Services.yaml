@@ -28,3 +28,9 @@ services:
   # REST API
   DigitalMarketingFramework\Typo3\Collector\Core\Controller\ContentModifierAjaxController:
     public: true
+
+  # Frontend settings
+  DigitalMarketingFramework\Typo3\Collector\Core\Controller\EventListener\FrontendSettingsUpdateEventListener:
+    tags:
+      - name: event.listener
+        event: DigitalMarketingFramework\Typo3\Core\Controller\Event\FrontendSettingsUpdateEvent

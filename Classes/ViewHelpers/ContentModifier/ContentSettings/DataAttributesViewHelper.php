@@ -12,6 +12,9 @@ class DataAttributesViewHelper extends AbstractContentModifierViewHelper
         $this->registerArgument('asString', 'bool', 'render attributes', false, false);
     }
 
+    /**
+     * @return array<string,string>|string
+     */
     public function render(): array|string
     {
         $attributes = $this->getContentModifierHandler()->getDataAttributesFromConfigurationDocument(
@@ -20,7 +23,8 @@ class DataAttributesViewHelper extends AbstractContentModifierViewHelper
             $this->getContentId()
         );
 
-        if (!$this->arguments['asString']) {
+        $asString = (bool)$this->arguments['asString'];
+        if (!$asString) {
             return $attributes;
         }
 

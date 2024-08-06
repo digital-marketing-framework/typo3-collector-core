@@ -4,6 +4,11 @@ namespace DigitalMarketingFramework\Typo3\Collector\Core\Utility;
 
 class TcaUtility
 {
+    /**
+     * @param array<string,mixed> $additionalParameters
+     *
+     * @return array<string,mixed>
+     */
     public static function getConfigEditorTcaField(string $mode, string $baseRoute, bool $supportsIncludes, array $additionalParameters = []): array
     {
         return [
@@ -22,6 +27,9 @@ class TcaUtility
         ];
     }
 
+    /**
+     * @return array<string,mixed>
+     */
     public static function getContentModifierConfigEditorTcaField(bool $asList, string $group, string $mode = 'modal'): array
     {
         return static::getConfigEditorTcaField(

@@ -4,6 +4,9 @@ namespace DigitalMarketingFramework\Typo3\Collector\Core\ViewHelpers\ContentModi
 
 class ContentSettingsViewHelper extends AbstractContentModifierViewHelper
 {
+    /**
+     * @return array<string,mixed>
+     */
     public function render(): array
     {
         return $this->getContentModifierHandler()->getContentSpecificFrontendSettingsFromConfigurationDocument(

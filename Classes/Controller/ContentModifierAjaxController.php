@@ -44,7 +44,7 @@ class ContentModifierAjaxController extends AbstractAjaxController
         $parameters = $request->getQueryParams();
 
         return [
-            'contentModifierList' => !!($parameters['contentModifierList'] ?? '0'),
+            'contentModifierList' => (bool)($parameters['contentModifierList'] ?? '0'),
             'contentModifierInterface' => match ($parameters['contentModifierGroup'] ?? '') {
                 'plugin' => FrontendPluginContentModifierInterface::class,
                 'page' => FrontendPageContentModifierInterface::class,

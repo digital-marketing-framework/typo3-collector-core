@@ -16,7 +16,8 @@ class FrontendSettingsUpdateEventListener
     public function __invoke(FrontendSettingsUpdateEvent $event): void
     {
         $registry = $event->getRegistryCollection()->getRegistryByClass(RegistryInterface::class);
-        $pageId = $GLOBALS['TSFE']->id;
+        $pageArguments = $GLOBALS['REQUEST']->getAttribute('routing');
+        $pageId = $pageArguments->getPageId();
         $page = $this->pageRepository->getPage($pageId);
         $configurationDocument = $page['tx_dmf_collector_core_content_modifier'] ?? '';
         $registry->getContentModifierHandler()->setPageSpecificSettingsFromConfigurationDocument($configurationDocument, true);

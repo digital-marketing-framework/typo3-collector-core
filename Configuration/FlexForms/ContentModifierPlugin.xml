@@ -8,43 +8,6 @@
                 </TCEforms>
                 <type>array</type>
                 <el>
-                    <settings.endPoint>
-                        <TCEforms>
-                            <label>End Point</label>
-                            <onChange>reload</onChange>
-                            <config>
-                                <type>select</type>
-                                <renderType>selectSingle</renderType>
-                                <items>
-                                    <numIndex index="0">
-                                        <numIndex index="0">Please select</numIndex>
-                                        <numIndex index="1"/>
-                                    </numIndex>
-                                </items>
-                                <itemsProcFunc>DigitalMarketingFramework\Typo3\Collector\Core\UserFunctions\FormEngine\ContentModifierSelection->getEndPoints</itemsProcFunc>
-                            </config>
-                        </TCEforms>
-                    </settings.endPoint>
-
-                    <settings.contentModifierTypeAndName>
-                        <TCEforms>
-                            <label>Content Plugin Type</label>
-                            <onChange>reload</onChange>
-                            <config>
-                                <type>select</type>
-                                <renderType>selectSingle</renderType>
-                                <items>
-                                    <numIndex index="0">
-                                        <numIndex index="0">Please select</numIndex>
-                                        <numIndex index="1"/>
-                                    </numIndex>
-                                </items>
-                                <!--<allowedPluginTypes>myContentModifierA,modifierB</allowedPluginTypes>-->
-                                <itemsProcFunc>DigitalMarketingFramework\Typo3\Collector\Core\UserFunctions\FormEngine\ContentModifierSelection->getPluginTypesAndNames</itemsProcFunc>
-                            </config>
-                        </TCEforms>
-                    </settings.contentModifierTypeAndName>
-
                     <settings.contentConfiguration>
                         <TCEforms>
                             <label>Content Configuration</label>
@@ -54,7 +17,10 @@
                                 <mode>modal</mode>
                                 <ajaxControllerBaseRoute>contentmodifier</ajaxControllerBaseRoute>
                                 <ajaxControllerSupportsIncludes>0</ajaxControllerSupportsIncludes>
-                                <additionalFlexFormSettingsAjaxControllerParameters>endPoint,contentModifierTypeAndName</additionalFlexFormSettingsAjaxControllerParameters>
+                                <ajaxControllerAdditionalParameters>
+                                    <contentModifierList>0</contentModifierList>
+                                    <contentModifierGroup>plugin</contentModifierGroup>
+                                </ajaxControllerAdditionalParameters>
                                 <cols>30</cols>
                                 <rows>10</rows>
                             </config>

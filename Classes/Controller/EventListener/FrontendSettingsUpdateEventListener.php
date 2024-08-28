@@ -16,7 +16,7 @@ class FrontendSettingsUpdateEventListener
     public function __invoke(FrontendSettingsUpdateEvent $event): void
     {
         $registry = $event->getRegistryCollection()->getRegistryByClass(RegistryInterface::class);
-        $pageArguments = $GLOBALS['REQUEST']->getAttribute('routing');
+        $pageArguments = $GLOBALS['TYPO3_REQUEST']->getAttribute('routing');
         $pageId = $pageArguments->getPageId();
         $page = $this->pageRepository->getPage($pageId);
         $configurationDocument = $page['tx_dmf_collector_core_content_modifier'] ?? '';

@@ -16,7 +16,7 @@ class Registry extends CoreCollectorRegistry implements SingletonInterface
     ) {
     }
 
-    public function initializeObject(): void
+    public function init(): void
     {
         $this->eventDispatcher->dispatch(
             new CoreRegistryUpdateEvent($this, RegistryUpdateType::GLOBAL_CONFIGURATION)

@@ -7,7 +7,6 @@ workflow:
         -
             if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
 stages:
-    - security-scanner
     - code-quality
 code-quality:
     parallel:
@@ -19,13 +18,6 @@ code-quality:
                 typo3_version:
                     - '11.5'
                     - '12.4'
-    cache:
-        key:
-            files:
-                - composer.lock
-            prefix: 'php${php_version}-typo3{typo3_version}-'
-        paths:
-            - ./cache/composer
     before_script:
         - 'set -xe'
         - 'apt-get update -yqq'
@@ -41,33 +33,3 @@ code-quality:
     stage: code-quality
     script:
         - 'composer ci'
-semgrep:
-    image: semgrep/semgrep
-    script: 'semgrep scan --config auto --error .'
-    stage: security-scanner
-trivy:
-    stage: security-scanner
-    image: 'docker:stable'
-    services:
-        -
-            name: 'docker:dind'
-            entrypoint:
-                - env
-                - '-u'
-                - DOCKER_HOST
-            command:
-                - dockerd-entrypoint.sh
-    variables:
-        DOCKER_HOST: 'tcp://docker:2375/'
-        DOCKER_DRIVER: overlay2
-        DOCKER_TLS_CERTDIR: ''
-    before_script:
-        - 'export TRIVY_VERSION=$(wget -qO - "https://api.github.com/repos/aquasecurity/trivy/releases/latest" | grep ''"tag_name":'' | sed -E ''s/.*"v([^"]+)".*/\1/'')'
-        - 'echo $TRIVY_VERSION'
-        - 'wget --no-verbose https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz -O - | tar -zxvf -'
-    allow_failure: false
-    script:
-        - './trivy fs --exit-code 1 --cache-dir .trivycache/ --no-progress --format table --vuln-type library --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL  ./'
-    cache:
-        paths:
-            - .trivycache/

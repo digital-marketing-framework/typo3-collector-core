@@ -11,7 +11,7 @@ use DigitalMarketingFramework\Typo3\Collector\Core\Registry\Event\CollectorRegis
 abstract class AbstractCollectorRegistryUpdateEventListener
 {
     public function __construct(
-        protected InitializationInterface $initialization
+        protected InitializationInterface $initialization,
     ) {
     }
 

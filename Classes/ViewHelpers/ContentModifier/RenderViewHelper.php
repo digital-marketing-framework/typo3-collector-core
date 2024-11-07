@@ -13,7 +13,8 @@ class RenderViewHelper extends AbstractContentModifierViewHelper
     {
         return $this->getContentModifierHandler()->renderFromConfigurationDocument(
             $this->getConfigurationDocument(),
-            $this->asList()
+            $this->asList(),
+            $this->getContentId()
         );
     }
 }

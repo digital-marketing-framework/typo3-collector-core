@@ -1,0 +1,29 @@
+<html data-namespace-typo3-fluid="true"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers"
+      xmlns:d="http://typo3.org/ns/DigitalMarketingFramework/Typo3/Core/ViewHelpers">
+<formvh:renderRenderable renderable="{form}">
+    <f:if condition="{d:extension.loaded(extKey:'formhelper')}">
+        <f:render arguments="{form: form}" partial="DependencyScript"/>
+        <f:if condition="{d:extension.loaded(extKey:'dmf_collector_core')}">
+            <f:render arguments="{form: form}" partial="Personalization"/>
+        </f:if>
+    </f:if>
+  <formvh:form
+    action="{form.renderingOptions.controllerAction}"
+    addQueryString="{form.renderingOptions.addQueryString}"
+    additionalParams="{form.renderingOptions.additionalParams}"
+    argumentsToBeExcludedFromQueryString="{form.renderingOptions.argumentsToBeExcludedFromQueryString}"
+    enctype="{form.renderingOptions.httpEnctype}"
+    id="{form.identifier}"
+    method="{form.renderingOptions.httpMethod}"
+    object="{form}"
+    section="{form.identifier}"
+  >
+    <f:render arguments="{page: form.currentPage}" partial="{form.currentPage.templateName}"/>
+    <div class="actions">
+      <f:render arguments="{form: form}" partial="Form/Navigation"/>
+    </div>
+  </formvh:form>
+</formvh:renderRenderable>
+</html>

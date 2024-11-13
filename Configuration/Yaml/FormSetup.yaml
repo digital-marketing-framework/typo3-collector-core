@@ -29,7 +29,14 @@ TYPO3:
                             formEditor:
                                 editors:
                                     844:
-                                        identifier: 'dependencyScript'
+                                        identifier: 'contentModifiers'
                                         templateName: 'Inspector-DmfContentModifierConfigTextarea'
                                         label: 'formEditor.elements.Form.editor.contentModifiers.label'
                                         propertyPath: 'renderingOptions.contentModifiers'
+                            renderingOptions:
+                                templateRootPaths:
+                                    100: 'EXT:formhelper/Resources/Private/Frontend/Templates/'
+                                    200: 'EXT:dmf_collector_core/Resources/Private/Extensions/form/Frontend/Templates/'
+                                partialRootPaths:
+                                    100: 'EXT:formhelper/Resources/Private/Frontend/Partials/'
+                                    200: 'EXT:dmf_collector_core/Resources/Private/Extensions/form/Frontend/Partials/'

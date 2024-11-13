@@ -5,7 +5,7 @@
     <header/>
     <body>
       <trans-unit id="formEditor.elements.Form.editor.contentModifiers.label" xml:space="preserve">
-        <source>Content Modifiers</source>
+        <source>Personalization</source>
       </trans-unit>
     </body>
   </file>

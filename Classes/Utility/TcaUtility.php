@@ -9,7 +9,7 @@ class TcaUtility
      *
      * @return array<string,mixed>
      */
-    public static function getConfigEditorTcaField(string $mode, string $baseRoute, bool $supportsIncludes, array $additionalParameters = []): array
+    public static function getConfigEditorTcaField(string $mode, string $documentType, bool $supportsIncludes, array $additionalParameters = []): array
     {
         return [
             'label' => 'Content Modification',
@@ -18,7 +18,7 @@ class TcaUtility
                 'type' => 'text',
                 'renderType' => 'digitalMarketingFrameworkConfigurationEditorTextFieldElement',
                 'mode' => $mode,
-                'ajaxControllerBaseRoute' => $baseRoute,
+                'ajaxControllerDocumentType' => $documentType,
                 'ajaxControllerSupportsIncludes' => $supportsIncludes,
                 'ajaxControllerAdditionalParameters' => $additionalParameters,
                 'cols' => 30,
@@ -34,7 +34,7 @@ class TcaUtility
     {
         return static::getConfigEditorTcaField(
             mode: $mode,
-            baseRoute: 'contentmodifier',
+            documentType: 'content-modifier',
             supportsIncludes: false,
             additionalParameters: [
                 'contentModifierList' => $asList,

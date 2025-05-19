@@ -14,9 +14,6 @@ $GLOBALS['TCA']['tx_dmfcollectorcore_domain_model_invalidrequest'] = [
         'adminOnly' => true,
         'default_sortby' => 'tstamp',
     ],
-    'interface' => [
-        'showRecordFieldList' => 'tstamp,identifier,count',
-    ],
     'types' => [
         '0' => [
             'showitem' => 'tstamp,identifier,count',
@@ -29,11 +26,9 @@ $GLOBALS['TCA']['tx_dmfcollectorcore_domain_model_invalidrequest'] = [
         'tstamp' => [
             'label' => $ll . 'tx_dmfcollectorcore_domain_model_invalidrequest.tstamp',
             'config' => [
-                'type' => 'input',
+                'type' => 'datetime',
                 'size' => '13',
-                'eval' => 'datetime',
                 'readOnly' => $readOnly,
-                'renderType' => 'inputDateTime',
             ],
         ],
         'identifier' => [
@@ -47,9 +42,8 @@ $GLOBALS['TCA']['tx_dmfcollectorcore_domain_model_invalidrequest'] = [
         'count' => [
             'label' => $ll . 'tx_dmfcollectorcore_domain_model_invalidrequest.count',
             'config' => [
-                'type' => 'input',
+                'type' => 'number',
                 'size' => '20',
-                'eval' => 'int',
                 'readOnly' => $readOnly,
             ],
         ],

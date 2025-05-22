@@ -34,4 +34,9 @@ class InvalidRequestRepository extends Repository
 
         return $query->execute()->toArray();
     }
+
+    public function findById(string $id): ?InvalidRequest
+    {
+        return $this->findOneBy(['identifier' => $id]);
+    }
 }

@@ -4,7 +4,7 @@
         <sDEF>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>DMF Content</sheetTitle>
+                    <sheetTitle>Anyrel Personalization</sheetTitle>
                 </TCEforms>
                 <type>array</type>
                 <el>
@@ -15,7 +15,7 @@
                                 <type>text</type>
                                 <renderType>digitalMarketingFrameworkConfigurationEditorTextFieldElement</renderType>
                                 <mode>modal</mode>
-                                <ajaxControllerBaseRoute>contentmodifier</ajaxControllerBaseRoute>
+                                <ajaxControllerDocumentType>content-modifier</ajaxControllerDocumentType>
                                 <ajaxControllerSupportsIncludes>0</ajaxControllerSupportsIncludes>
                                 <ajaxControllerAdditionalParameters>
                                     <contentModifierList>0</contentModifierList>
@@ -26,7 +26,6 @@
                             </config>
                         </TCEforms>
                     </settings.contentConfiguration>
-
                 </el>
             </ROOT>
         </sDEF>

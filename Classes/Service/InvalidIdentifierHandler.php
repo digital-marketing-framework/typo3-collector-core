@@ -124,7 +124,7 @@ class InvalidIdentifierHandler extends CoreInvalidIdentifierHandler implements G
         if (!$this->invalidRequest instanceof InvalidRequest) {
             $this->invalidRequest = null;
             if ($this->identifier !== '') {
-                $this->invalidRequest = $this->invalidRequestRepository->findOneByIdentifier($this->identifier);
+                $this->invalidRequest = $this->invalidRequestRepository->findById($this->identifier);
             }
         }
     }

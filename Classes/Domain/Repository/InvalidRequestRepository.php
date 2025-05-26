@@ -4,7 +4,6 @@ namespace DigitalMarketingFramework\Typo3\Collector\Core\Domain\Repository;
 
 use DigitalMarketingFramework\Typo3\Collector\Core\Domain\Model\InvalidRequest;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
-use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
@@ -26,13 +25,19 @@ class InvalidRequestRepository extends Repository
     }
 
     /**
-     * @return QueryResultInterface<InvalidRequest>
+     * @return array<InvalidRequest>
      */
-    public function findExpired(int $expireTimestamp): QueryResultInterface
+    public function findExpired(int $expireTimestamp): array
     {
         $query = $this->createQuery();
         $query->matching($query->lessThanOrEqual('tstamp', $expireTimestamp));
 
-        return $query->execute();
+        return $query->execute()->toArray();
+    }
+
+    public function findById(string $id): ?InvalidRequest
+    {
+        /** @var ?InvalidRequest */
+        return $this->findOneBy(['identifier' => $id]);
     }
 }

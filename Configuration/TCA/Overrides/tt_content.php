@@ -12,7 +12,7 @@ defined('TYPO3') || exit;
     ExtensionUtility::registerPlugin(
         extensionName: 'DmfCollectorCore',
         pluginName: 'ContentModifier',
-        pluginTitle: 'DMF Content'
+        pluginTitle: 'Anyrel Content'
     );
 
     $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['dmfcollectorcore_contentmodifier'] = 'pi_flexform';
@@ -33,6 +33,6 @@ defined('TYPO3') || exit;
 
     ExtensionManagementUtility::addToAllTCAtypes(
         'tt_content',
-        '--div--;Digital Marketing,tx_dmf_collector_core_content_modifier'
+        '--div--;Anyrel,tx_dmf_collector_core_content_modifier'
     );
 })();

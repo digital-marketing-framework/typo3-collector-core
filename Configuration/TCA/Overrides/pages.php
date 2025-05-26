@@ -17,6 +17,6 @@ defined('TYPO3') || exit;
 
     ExtensionManagementUtility::addToAllTCAtypes(
         'pages',
-        '--div--;Digital Marketing,tx_dmf_collector_core_content_modifier'
+        '--div--;Anyrel,tx_dmf_collector_core_content_modifier'
     );
 })();

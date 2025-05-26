@@ -1,24 +1,2 @@
 
-#module.tx_dmfcore_web_dmfcoremanager {
-#  view {
-#    templateRootPaths.2 = EXT:dmf_collector_core/Resources/Private/Backend/Templates/
-#    partialRootPaths.2 = EXT:dmf_collector_core/Resources/Private/Backend/Partials/
-#    layoutRootPaths.2 = EXT:dmf_collector_core/Resources/Private/Backend/Layouts/
-#  }
-#  settings {
-#    sections {
-#      collector {
-#        title = Collector
-#        subtitle = COLLECTOR
-#        controller = CollectorXyz
-#        action = xyz
-#        actionLabel = Show
-#        description = Collector XYZ
-#        icon =
-#        weight = 200
-#      }
-#    }
-#  }
-#}
-
 lib.contentElement.partialRootPaths.4 = EXT:dmf_collector_core/Resources/Private/Extensions/fluid_styled_content/Partials/

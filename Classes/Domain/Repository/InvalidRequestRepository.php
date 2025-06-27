@@ -2,42 +2,44 @@
 
 namespace DigitalMarketingFramework\Typo3\Collector\Core\Domain\Repository;
 
-use DigitalMarketingFramework\Typo3\Collector\Core\Domain\Model\InvalidRequest;
-use TYPO3\CMS\Extbase\Persistence\QueryInterface;
-use TYPO3\CMS\Extbase\Persistence\Repository;
+use DigitalMarketingFramework\Collector\Core\InvalidIdentifier\InvalidIdentifierSchema;
+use DigitalMarketingFramework\Collector\Core\InvalidIdentifier\InvalidRequestStorageInterface;
+use DigitalMarketingFramework\Collector\Core\Model\InvalidRequest\InvalidRequest;
+use DigitalMarketingFramework\Collector\Core\Model\InvalidRequest\InvalidRequestInterface;
+use DigitalMarketingFramework\Core\SchemaDocument\Schema\ContainerSchema;
+use DigitalMarketingFramework\Typo3\Core\Domain\Repository\ItemStorageRepository;
+use Doctrine\DBAL\ParameterType;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 
 /**
- * @extends Repository<InvalidRequest>
+ * @extends ItemStorageRepository<InvalidRequestInterface>
  */
-class InvalidRequestRepository extends Repository
+class InvalidRequestRepository extends ItemStorageRepository implements InvalidRequestStorageInterface
 {
-    /**
-     * @return QueryInterface
-     *
-     * @phpstan-return QueryInterface<InvalidRequest>
-     */
-    public function createQuery() // @phpstan-ignore-line TODO Who can define the signature in a way that is compatible with its parent?
+    public function __construct(ConnectionPool $connectionPool)
     {
-        $query = parent::createQuery();
-        $query->getQuerySettings()->setStoragePageIds([0]);
-
-        return $query;
+        parent::__construct($connectionPool, InvalidRequest::class, 'tx_dmfcollectorcore_domain_model_invalidrequest');
     }
 
-    /**
-     * @return array<InvalidRequest>
-     */
-    public function findExpired(int $expireTimestamp): array
+    public function fetchExpired(int $expireTimestamp): array
     {
-        $query = $this->createQuery();
-        $query->matching($query->lessThanOrEqual('tstamp', $expireTimestamp));
+        $queryBuilder = $this->buildQuery();
+        $queryBuilder->andWhere(
+            $queryBuilder->expr()->lte('tstamp', $queryBuilder->createNamedParameter($expireTimestamp, ParameterType::INTEGER))
+        );
 
-        return $query->execute()->toArray();
+        $rows = $queryBuilder->executeQuery()->fetchAllAssociative();
+
+        return $this->createResults($rows);
     }
 
-    public function findById(string $id): ?InvalidRequest
+    public function fetchByIdentifier(string $identifier): ?InvalidRequestInterface
     {
-        /** @var ?InvalidRequest */
-        return $this->findOneBy(['identifier' => $id]);
+        return $this->fetchOneFiltered(['identifier' => $identifier]);
+    }
+
+    public static function getSchema(): ContainerSchema
+    {
+        return new InvalidIdentifierSchema();
     }
 }

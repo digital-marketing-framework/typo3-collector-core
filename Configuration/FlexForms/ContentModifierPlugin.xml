@@ -3,28 +3,24 @@
     <sheets>
         <sDEF>
             <ROOT>
-                <TCEforms>
-                    <sheetTitle>Anyrel Personalization</sheetTitle>
-                </TCEforms>
+                <sheetTitle>Anyrel Personalization</sheetTitle>
                 <type>array</type>
                 <el>
                     <settings.contentConfiguration>
-                        <TCEforms>
-                            <label>Content Configuration</label>
-                            <config>
-                                <type>text</type>
-                                <renderType>digitalMarketingFrameworkConfigurationEditorTextFieldElement</renderType>
-                                <mode>modal</mode>
-                                <ajaxControllerDocumentType>content-modifier</ajaxControllerDocumentType>
-                                <ajaxControllerSupportsIncludes>0</ajaxControllerSupportsIncludes>
-                                <ajaxControllerAdditionalParameters>
-                                    <contentModifierList>0</contentModifierList>
-                                    <contentModifierGroup>plugin</contentModifierGroup>
-                                </ajaxControllerAdditionalParameters>
-                                <cols>30</cols>
-                                <rows>10</rows>
-                            </config>
-                        </TCEforms>
+                        <label>Content Configuration</label>
+                        <config>
+                            <type>text</type>
+                            <renderType>digitalMarketingFrameworkConfigurationEditorTextFieldElement</renderType>
+                            <mode>modal</mode>
+                            <ajaxControllerDocumentType>content-modifier</ajaxControllerDocumentType>
+                            <ajaxControllerSupportsIncludes>0</ajaxControllerSupportsIncludes>
+                            <ajaxControllerAdditionalParameters>
+                                <contentModifierList>0</contentModifierList>
+                                <contentModifierGroup>plugin</contentModifierGroup>
+                            </ajaxControllerAdditionalParameters>
+                            <cols>30</cols>
+                            <rows>10</rows>
+                        </config>
                     </settings.contentConfiguration>
                 </el>
             </ROOT>

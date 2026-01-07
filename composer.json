@@ -56,6 +56,9 @@
         "typo3/cms": {
             "extension-key": "dmf_collector_core",
             "web-dir": ".Build/Web"
+        },
+        "branch-alias": {
+            "dev-main": "3.x-dev"
         }
     },
     "scripts": {

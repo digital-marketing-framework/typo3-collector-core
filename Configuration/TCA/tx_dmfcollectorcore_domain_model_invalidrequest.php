@@ -5,7 +5,7 @@ defined('TYPO3') || exit('Access denied.');
 $ll = 'LLL:EXT:dmf_collector_core/Resources/Private/Language/locallang_db.xlf:';
 $readOnly = true;
 
-$GLOBALS['TCA']['tx_dmfcollectorcore_domain_model_invalidrequest'] = [
+return [
     'ctrl' => [
         'label' => 'tstamp',
         'tstamp' => 'tstamp',

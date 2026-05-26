@@ -1,2 +1,11 @@
 includes:
 	- .Build/vendor/mediatis/typo3-coding-standards/phpstan.neon
+
+parameters:
+	# The wizard's parent class lives at \TYPO3\CMS\Core\Upgrades\AbstractListTypeToCTypeUpdate
+	# only on TYPO3 v14+. On v12/v13 PHPStan crashes trying to resolve the parent. The
+	# wizard is only ever active on v14 (verified via the version guard inside the class),
+	# so excluding the file from analysis is safe — runtime correctness is checked via
+	# TYPO3's wizard discovery on v14.
+	excludePaths:
+		- Classes/Updates/ContentModifierListTypeToCTypeUpdate.php
